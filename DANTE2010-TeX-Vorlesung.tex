@@ -1,0 +1,125 @@
+\documentclass[t]{beamer}
+\input{\jobname_header}
+\input{\jobname_beameranpassungen}
+\begin{document}
+
+\begin{frame}{\LaTeX-Vorlesung an der Uni Heidelberg}
+• Vorlesung „Einführung in das Textsatzsystem \LaTeX“ (SoSe 2010)
+• Veranstaltet von der Informatik, 2\,SWS
+• 2\,ECTS-Punkte, benotet
+•[] (übergreifende Kompetenzen)
+• Bewertungsgrundlage: Übungszettel
+• 170 Teilnehmer (unverbindlich) angemeldet, ca. 100 Scheine erworben
+\•
+\end{frame}
+
+\section{Warum \LaTeX\ an der Uni?}
+\begin{frame}{\LaTeX\ im universitären Umfeld}
+• Formelsatz: Mathematik, Physik
+• hochwertige Dokumente: Sprachwissenschaften
+• als freie Software überall verfügbar
+• etc. … 
+\•
+\end{frame}
+
+\begin{frame}{Kontakt}
+• nicht jeder Studienanfänger kennt \LaTeX\ überhaupt
+• oft nur den Namen gehört, aber keine Kenntnisse
+•[⇒] Interesse vorhanden, oft kein Ansprechpartner
+• als Vorlesung, um kompetenten Ansprechpartner zu bieten
+• langfristige Beschäftigung, um selbst Kompetenz ausbilden zu können
+• Vorteil gegenüber Crash-Kursen: Tieferes Verständnis statt nur spezielles Auswendiglernen
+• Ziel: Eigenständiges Verfassen umfangreicher (Abschluss-)Arbeiten
+• Vermeiden von unverstandenem copy-paste Code, der Probleme bereiten kann
+\•
+\end{frame}
+
+\begin{frame}{Warum kein Crash-Kurs?}
+• oft angeboten: zwei, drei Wochenenden zum Erlernen
+•[-] reicht zum Anwenden, aber nicht zum Verstehen von \LaTeX
+• als wichtigstes Mittel für wissenschaftliche Publikationen sollte man verstehen, was es tut und warum
+• häufigere Beschäftigung mit dem Stoff erhöht die Aufnahmefähigkeit
+• Umgang mit \LaTeX\ im gewohnten Umfeld, nicht im Rechnerraum …
+\•
+\end{frame}
+
+\begin{frame}{Warum bewertete Vorlesung?}
+• Anerkennung der erbrachten Übungsleistung
+• Erwerb typographischer Grundkenntnisse als anerkennbare Studienleistung
+\•
+\end{frame}
+
+\begin{frame}{Offizielle Organisation}
+• offizieller Verantwortlicher: Professor der Informatik
+• zwei HiWis
+\•
+\end{frame}
+
+\section{Inhalte der Vorlesung}
+\begin{frame}[fragile]
+• orientiert an modernen Maschinen
+• vorgeschriebene Codierung: utf8 (Vermeiden von allen möglichen Problemen)
+•[⇒] fast ausschließlich Verwendung von \XeTeX
+• einheitlicher Editor (\TeX works)
+• …
+• \url{http://elearning.uni-heidelberg.de/mod/resource/view.php?id=87822}
+\•
+\end{frame}
+
+\begin{frame}{\TeX nische Umsetzung: Folien}
+• Ziel: einheitliches Layout für alle Folien
+• jedes Dokument eigenständig
+• Problem: Anzahl der Pakete beschränkt (Counter, Längen etc., Inkompatibilitäten)
+• geringst möglicher Aufwand zum Setzen (automatisches Erkennen von Titel, Vorlesungsnummer, …)
+\•
+\end{frame}
+
+\begin{frame}{\TeX nische Umsetzung: Folien}
+• gewünscht: einheitliches Layout für alle Folien
+• Verwendung von beamer
+• eigene header-Datei
+• eigene Datei für Anpassungen des Layouts
+• experimentelle Methode, um den Titel aus dem Dateinamen zu extrahieren
+\•
+\end{frame}
+
+\begin{frame}[fragile]{Header der einzelnen Vorlesungen}
+\begin{verbatim}
+\input{kursheader}
+\begin{document}
+\end{verbatim}
+\end{frame}
+
+\section{Übungen und Folien}
+\begin{frame}{\TeX nische Umsetzung: Übungszettel}
+• gewünscht: einheitliches Layout für alle Übungen
+• eigene Klasse zum Setzen der Übungen und Lösungen
+• da die Übungen auch im Quellcode online stehen: getrennte Dateien für Übungen und Lösungen!
+•[⇒] Klassenoption zum Einbinden der Lösungen
+• automatisiertes Finden zusammengehöriger Übungs-Lösungs-Blöcke
+\•
+\end{frame}
+
+\begin{frame}{Übungsbetrieb}
+• Übungen werden Freitag nach der Vorlesung online gestellt
+• Bearbeitungszeit: eine Woche
+• Abgabe vor der nächsten Vorlesung
+• Korrekturzeit: eine Woche
+• Besprechung in der übernächsten Vorlesung
+\• 
+\end{frame}
+
+\begin{frame}{Bewertung}
+• Aus Zeitgründen: HiWi
+• Abzüge für: fehlende Übungsteile
+•[] Code, der \TeX-Fehler verursacht
+•[] unschöne, unelegante Lösungen
+•[] nicht lauffähiger Code (wg. Kodierung o.\,ä.)
+• Anmerkungen zu:
+•[] überflüssigem, unnötigem Code
+•[] Rechtschreibfehler
+•[] besserer Codestil (Einrücken, Strukturieren, …) 
+\•
+\end{frame}
+
+\end{document}

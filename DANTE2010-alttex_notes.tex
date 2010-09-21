@@ -1,0 +1,76 @@
+\documentclass{scrartcl}
+
+\usepackage{
+polyglossia,
+shortvrb,
+xltxtra
+}
+
+\MakeShortVerb|
+\setmainlanguage{german}
+\setsansfont{Linux Libertine}
+\setmainfont{Linux Libertine}
+\addtokomafont{disposition}{\mdseries\scshape}
+\addtokomafont{subtitle}{\rm}
+
+\title{Maschinen, Formate, Tastaturen}
+\subtitle{Ein leichterer \TeX-Alltag dank moderner Entwicklungen}
+\author{Arno Trautmann}
+\date{DANTE e.\,V. Harbsttagung 2010}
+
+\begin{document}
+\maketitle
+\begin{abstract}
+Dieser Vortrag stellt einige Entwicklungen der letzten Jahre vor, die den (alltäglichen) Umgang mit \TeX\ vereinfachen können: In Kombination mit modernen Schrift- und Kodierungstechniken sowie durchdachten Tastaturbelegungen können viele Standardarbeiten mit \TeX\ und dessen Weiterentwicklungen einfacher, bequemer und schneller umgesetzt werden.
+\end{abstract}
+\tableofcontents
+
+\section{\XeTeX, lua\TeX\ (Anfänger)}
+Mit den modernen Weiterentwicklungen \XeTeX\ und lua\TeX\ werden viele Sachen in \TeX\ einfacher – nicht etwa komplizierter, wie es oft bei Neuerungen der Fall ist. Beide sind im normalen Gebrauch weitestgehend rückwärtskompatibel und es gibt nur wenige Einschränkungen, die den Umstieg von pdf\TeX\ behindern können.
+
+Bei \XeTeX\ gehört zu diesen Einschränkungen leider die fehlende Mikrotypographie dazu, aber die ist irgendwie anders dann doch noch drin und verfügbar. Mit lua\TeX\ geht prinzipiel l erstmal alles, aber man muss es selbst machen. lua\TeX\ bietet die nötigen Schnittstellen als lua-Hooks und ermöglicht so beliebigen lua-Code an den wichtigen Schnittstellen von \TeX s Mechanismus. Für den Nutzer entscheidend: Beide Maschinen können genuin mit den neuen Schrifttechnologien umgehen und bieten daher hervorragende typographische Möglichkeiten.
+
+Speziell zu erwähnen sind daher:
+
+\section{Schriften, Kodierungen (fortgeschrittene Anfänger)}
+OpenType-Schriften, TrueType-Schriften und Verwendung, einfaches Interface dank fontspec, aber eigtl. überflüssig dank mächtiger low level-Schnittstelle. (luaotfload nötig? …)
+lua\TeX s Schriftlademechanismus basiert auf und verwendet fontspec-Code, der per hook eingebunden wird/werden kann. Daher sehr mächtig und sowieso toll und so.
+
+\subsection{unicode math}
+Unicode definiert viele, viele tolle Symbole auch und gerade für den Mathesatz. Das sind zunächst nur Zeichen, die in verschiedenen Schriften als Codepunkte dargestellt werden können. Gute Schrift vorausgesetzt. Die Eingabe eines ∫ aber gibt noch lange kein Integral, da es sich eigentlich um ein Textzeichen handelt. Daher muss eine neue Spezifikation her, in diesem Fall die Mathespezifikation von OpenType, komplementär zur normalen Textspezifikation. unicodetmath ermöglicht das Laden, Verwenden und einfache Umgehen miet dieser Technik. Der „normale“ Nutzer hat den Vorteil, eine beliebige Matheschrift auswählen zu können. Der Neoianer hat die Möglichkeit, sein mächtiges Keyboard voll ausnutzen zu können und im Mathemodus so zu schreiben wie er es gewohnt ist: fast ohne spezielle Befehle, rein mit Uincode-Zeichen.
+
+
+\section{\LaTeX3: xparse, xpackages (Fortgeschrittene)}
+Low Level für Paketautoren interessant, aber für normalen Anwender (noch?) unwichtig. Schon jetzt sehr nützlich: xparse (siehe Artikel in TUGboat).
+Für normalen Nutzer: Eigene Befehle im Dokument definieren (oft Anfragen, wie man mehrere optionale Argumente definiert!)
+
+Für fortgeschrittenen Nutzer: als Paketautor für weitreichende Syntax. (optionale Argumente mit \LaTeXe\ nur eines möglich, mit Paket zwei, Stern gar nicht, optionale Klammern etc. nicht, feste Tokens nicht)
+
+\subsection{Beispiel levelscheme}
+kurz: Ansatz
+
+ausführlicher: einzelne Definitionen, Verwendungen, Implementationen etc.
+
+\section{altTeX – the (still) relevant parts … (Anfänger/Fortgeschrittene)}
+\subsection{active characters – aber bitte die richtigen!}
+\catcode`\•13
+\let•\item
+\begin{itemize}
+• active characters nicht für Standardzwecke wie „“ – dafür gibt es ja Zeichen!
+• Zeichen, die für das, wofür sie gedacht sind, besser geeignet sind als eigene Befehle für alles
+• itemize hack
+• andere hacks für listen
+• tabbing mit tab!
+• Tabellen mit Tab und Enter
+\end{itemize}
+\subsection{Klammern}
+Es ist dämlich, immer |\left|, |\right| schreiben zu müssen.
+\subsection{huge math}
+\subsection{lazy under/superscript}
+\subsection{Matrizen}
+\subsection{No escape}
+
+\section{Details zur Implementation, Diskussionen … (Fortgeschrittene)}
+\end{document}
+
+

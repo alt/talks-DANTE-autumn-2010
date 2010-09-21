@@ -1,0 +1,76 @@
+\mode<presentation>{
+  \usetheme{Frankfurt}
+  \useoutertheme{infolines}
+  \usecolortheme[RGB={0,100,130}]{structure}
+  \useinnertheme{rounded}
+  \setbeamertemplate{navigation symbols}{} 
+}
+
+\newcommand\subtitlei[1]{\def\insertsubtitlei{#1}}
+\newcommand\subtitleii[1]{\def\insertsubtitleii{#1}}
+
+\setbeamertemplate{title page}
+  {
+    \vspace*{1cm}
+    \begin{centering}
+      {\usebeamerfont{title}\usebeamercolor[bg]{title}
+      {\Large \inserttitle}
+      \\[.3cm]
+      \insertsubtitle\\
+      \large \color{black}
+      }
+\vspace*{1cm}
+    \vbox to 1cm {\hfill \includegraphics[width=.2\textwidth]{ctanlion}}
+      \usebeamerfont{subtitle}\usebeamercolor[bg]{subtitle}
+      {\color{black}\Large  \LARGE — Ein Erfahrungsbericht —}\vfill
+    {\hfill \insertdate \hfill}
+    \end{centering}
+
+    \vfill\vfill
+
+    \hspace*{-.47cm}
+    \usebeamertemplate*{footline}
+    \vspace*{-1.15cm}
+}
+
+\setbeamercolor*{author in head/foot}{parent=palette tertiary}
+\setbeamercolor*{title in head/foot}{parent=palette secondary}
+\setbeamercolor*{date in head/foot}{parent=palette primary}
+
+\setbeamercolor*{section in head/foot}{parent=palette secondary}
+%\setbeamercolor*{subsection in head/foot}{parent=palette primary}
+
+\defbeamertemplate*{headline}{infolines theme changed}
+{
+  \leavevmode%
+  \hbox{%
+  \begin{beamercolorbox}[wd=.3\paperwidth,ht=2.25ex,dp=1.4ex,center]{title in head/foot}%
+    \LaTeX-Kurs 2010
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[wd=.4\paperwidth,ht=2.25ex,dp=1.4ex,center]{section in head/foot}%
+%%      \coursenumber\ – \coursetitle
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[wd=.3\paperwidth,ht=2.25ex,dp=1.4ex,center]{section in head/foot}%
+\color{white}
+    \insertsectionhead\hspace*{1em}
+  \end{beamercolorbox}}%
+  \vskip0pt%
+}
+
+\defbeamertemplate*{footline}{infolines theme changed}
+{
+  \leavevmode%
+  \hbox{%
+  \begin{beamercolorbox}[wd=.3\paperwidth,ht=2.25ex,dp=1ex,center]{author in head/foot}%
+      \insertshortauthor
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[wd=.4\paperwidth,ht=2.25ex,dp=1ex,center]{title in head/foot}%
+    \insertshortdate{}
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[wd=.3\paperwidth,ht=2.25ex,dp=1ex,center]{author in head/foot}%
+    \insertframenumber{} / \inserttotalframenumber
+  \end{beamercolorbox}}%
+  \vskip0pt%
+}
+
+\setbeamersize{text margin left=1em,text margin right=1em}

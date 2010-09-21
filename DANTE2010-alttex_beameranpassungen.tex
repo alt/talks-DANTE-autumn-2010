@@ -1,0 +1,69 @@
+\mode<presentation>{
+  \usetheme{Frankfurt}
+  \useoutertheme{infolines}
+  \usecolortheme[RGB={0,100,130}]{structure}
+  \useinnertheme{rounded}
+  \setbeamertemplate{navigation symbols}{} 
+}
+
+\newcommand\subtitlei[1]{\def\insertsubtitlei{#1}}
+\newcommand\subtitleii[1]{\def\insertsubtitleii{#1}}
+
+\setbeamertemplate{title page}
+  {
+    \vspace*{1cm}
+    \begin{centering}
+      {\usebeamerfont{title}\usebeamercolor[bg]{title}
+      {\Large \inserttitle}
+      \\[.3cm]
+      \insertsubtitle\\
+      \large \color{black}
+	Arno Trautmann
+      }
+\vskip 0pt plus 5.5fill
+    {\hfill \insertdate \hfill}
+    \end{centering}
+    \vskip 0pt plus 5.5fill
+    \hspace*{-.47cm}
+    \usebeamertemplate*{footline}
+\unskip
+}
+
+\setbeamercolor*{author in head/foot}{parent=palette tertiary}
+\setbeamercolor*{title in head/foot}{parent=palette secondary}
+\setbeamercolor*{date in head/foot}{parent=palette primary}
+
+\setbeamercolor*{section in head/foot}{parent=palette secondary}
+%\setbeamercolor*{subsection in head/foot}{parent=palette primary}
+
+\defbeamertemplate*{headline}{infolines theme changed}
+{
+  \leavevmode%
+  \hbox{%
+  \begin{beamercolorbox}[wd=.3\paperwidth,ht=2.25ex,dp=1.4ex,center]{title in head/foot}%
+    Maschinen, Formate, Tastaturen
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[wd=.3\paperwidth,ht=2.25ex,dp=1.4ex,center]{section in head/foot}%
+\color{white}
+    \insertsectionhead\hspace*{1em}
+  \end{beamercolorbox}}%
+  \vskip0pt%
+}
+
+\defbeamertemplate*{footline}{infolines theme changed}
+{
+  \leavevmode%
+  \hbox{%
+  \begin{beamercolorbox}[wd=.3\paperwidth,ht=2.25ex,dp=1ex,center]{author in head/foot}%
+      \insertshortauthor
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[wd=.4\paperwidth,ht=2.25ex,dp=1ex,center]{title in head/foot}%
+    \insertshortdate{}
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[wd=.3\paperwidth,ht=2.25ex,dp=1ex,center]{author in head/foot}%
+    \insertframenumber{} / \inserttotalframenumber
+  \end{beamercolorbox}}%
+  \vskip0pt%
+}
+
+\setbeamersize{text margin left=1em,text margin right=1em}
