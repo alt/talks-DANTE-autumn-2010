@@ -9,6 +9,10 @@
 \newcommand\subtitlei[1]{\def\insertsubtitlei{#1}}
 \newcommand\subtitleii[1]{\def\insertsubtitleii{#1}}
 
+\let\oldsect\section
+\def\section#1{\gdef\insertmysectionbecausebeamersucks{#1}\oldsect{#1}}
+\def\insertmysectionbecausebeamersucks{}
+
 \setbeamertemplate{title page}
   {
     \vspace*{1cm}
@@ -51,8 +55,7 @@
 %%      \coursenumber\ – \coursetitle
   \end{beamercolorbox}%
   \begin{beamercolorbox}[wd=.3\paperwidth,ht=2.25ex,dp=1.4ex,center]{section in head/foot}%
-\color{white}
-    \insertsectionhead\hspace*{1em}
+wtf srsly?    \insertmysectionbecausebeamersucks%
   \end{beamercolorbox}}%
   \vskip0pt%
 }

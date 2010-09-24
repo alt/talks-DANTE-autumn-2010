@@ -6,39 +6,55 @@
   \textsf{alt}\TeX\xspace
 }
 
-
 \begin{document}
 
-\section{Maschinen}
-\begin{frame}{Was haben \TeX\ und Tastaturbelegungen gemeinsam?}
-•<+> Sie sind alt!
-• die am weitesten verbreitete Belegung |qwerty/z| kam 1868 auf
-• \TeX\ kam 1978 in der ersten Version raus
-• seitdem hat sich bei \TeX\ einiges getan – bei Tastaturen nicht
-• da die Tastatur das wichtigste Hilfsmittel ist – betrachten wir die Entwicklung der beiden Ts und schauen, wie sie voneinander profitieren können
+\begin{frame}{Worum geht es?}
+• Einfacherers Arbeiten mit \TeX\ durch:
+• Maschinen: Neuentwicklungen der letzten Jahre, Nutzen für den normalen Anwender
+• Formate: \LaTeX3-Kernel und Paket, die darauf basieren
+• Tastaturen: Neo-Tastaturlayout
 \•
 \end{frame}
 
-% ⇒ overview
-
-\begin{frame}{Vorteile neuer Maschinen}
-• lua\TeX\ und \XeTeX\ unterstützen nativ und vollständig utf8
-•[⇒] nie mehr Probleme beim Austausch von Dokumenten, nie wieder kaputte Umlaute, keine umständliche Eingabe von speziellen Zeichen anderer Sprachen
-• ganz zu schweigen von asiatischem Satz …
-• lua\TeX\ und \XeTeX\ unterstützen nativ moderne Schrifttechnologien ⇒ es werden keine speziellen Dateien zum Schrifteinbinden benötigt
-•[⇒] modernste, neuste Schriften sind in vollem Funktionsumfang verfügbar
-• Wermutstropfen bei \XeTeX: Mikrotypographie nicht wie bei pdf\TeX\ möglich, daher oft vernachlässigt in der Wahl der Maschine
-• aber Vorteil: unterstützt |pstricks|!
+\section{Maschinen}
+\begin{frame}{Maschinen}
+• kurzer Überblick über die Entwicklung von \TeX78 bis lua\TeX\\
+(aktuelle Version unter \url{http://github.com/alt/overview})
+%%• im folgenden: nur \XeTeX\ und lua\TeX
 \•
+\end{frame}
+
+\begin{frame}{Vorteile neuer Maschinen – im Alltag}
+\begin{block}{Vollständige utf8-Unterstützung}
+⇒ nie mehr Probleme beim Austausch von Dokumenten, nie wieder kaputte Umlaute, keine umständliche Eingabe von speziellen Zeichen anderer Sprachen, beliebig viele Sonderzeichen,\\
+ganz zu schweigen von asiatischem Satz …
+\end{block}
+
+\begin{block}{moderne Schrifttechnologien (ttf, otf, aat)}
+Keine speziellen Dateien zum Schrifteinbinden benötigt, Portabilität von Schriften anderer Anwendungen\\
+⇒ modernste, neuste Schriften sind in vollem Funktionsumfang leicht verwendbar
+\end{block}
+\end{frame}
+
+\begin{frame}{Nachteile neuer Maschinen}
+\begin{block}{}
+• etwas Neues muss gelernt werden
+• weniger stabil (bugs/neue Features)
+• nicht rückwärtskompatibel
+• auf veralteten Systemen nicht verfügbar
+• Wermutstropfen bei \XeTeX: Mikrotypographie nicht wie bei pdf\TeX\ möglich
+• Verwirrung und Unklarheiten durch neue Vielfalt („Welche Maschine, welches Format, welche Distribution nutzt du?“)
+\•
+\end{block}
 \end{frame}
 
 \section{Formate}
 \begin{frame}{Formate}
-• fast niemand verwendet INITEX als Programm
-• fast immer wird ein Format verwendet:
+• fast niemand verwendet INITEX als Programm, fast immer wird ein Format verwendet:
 • plain\TeX: Do It Yourself!
-• \LaTeX: A Document Preparation Program
-• Con\TeX t: The super-duper cow power
+• \LaTeX: A Document Preparation System
+• Con\TeX t: super-duper cow power – kann alles außer Dokumentation\pause
+• alle Formate können an Maschinen angepasst werden, um bestimmte Features leicht zugänglich zu machen: pdf\LaTeX, \XeLaTeX, lua\LaTeX, Con\TeX t Mk II bzw. IV, plain lua\TeX\ etc.
 \•
 \end{frame}
 
@@ -67,10 +83,36 @@
 \end{frame}
 
 \begin{frame}[fragile]{Designmerkmale von \LaTeX3 (Auswahl)}
+• anderes Catcode-Regime: |\ExplSyntaxOn/Off|\\%
+ (vgl. |\makeatletter \makeatother|
+• Leerzeichen werden ignoriert (|~| wenn nötig)
 • Namen: Das |@| als Trennstelle in Namen wird vom |_| übernommen
-• Interne Namen enden mit einem |:|
-• Nach dem |:| werden erwartete Argumente benannt: |\cs_new:Npn|
-\• 
+• Interne Namen enden mit einem |:|\pause
+• Nach dem |:| werden erwartete Argumente dargestellt
+• |\cs_new:Npn|\\%
+|Modulname_Zwischenname_Name : Argumente|
+\•
+\end{frame}
+
+\begin{frame}[fragile]{Argumente}
+• |N|: „normal“es Token
+• |n|: „normal“, gruppiert
+• |e|: wird expandiert
+• |x|: wird voll expandiert
+• |c|: baute eine Kontrollsequenz: |\cs_new:cpn{name} = \cs_new:Npn\name|
+• |p|: \TeX-Parametersequenz (|#1 xyz #2|)
+• |T|: true-Zweig für |\if|-Abfragen
+• |F|: false-Zweig für |\if|-Abfragen (T, F oder TF möglich!)
+• |w|: „wired“ – alles andere (z.\,B. low level-|\if|-Konstrukte)
+\•
+\end{frame}
+
+\begin{frame}{Vorteile der Namensgebung}
+• Konsistente Einteilung in Module möglich
+• Quellcode wesentlich besser lesbar (Wird eine Variable gesetzt? Ein Zähler? Eine Konstante verwendet? …)
+• Anzahl der nötigen Argumente direkt sichtbar
+• Ändern von Expansion/Auswertung etc. eines Argumentes durch Ändern eines Buchstabens im Argument
+\•
 \end{frame}
 
 \begin{frame}[fragile]{Beispiel für sinnvolle \LaTeX3-Konstrukte}
@@ -95,25 +137,93 @@
 \end{block}
 \end{frame}
 
-\begin{frame}{\LaTeXe-Versionen}
-\LaTeXe\ bietet z.\,B. |\@nameuse| und |\@namedef|, aber das nutzt niemand … weil es niemand kennt und es nicht konsequent ist.\\
-(Kannte ich bis eben auch nicht …)
+\begin{frame}[fragile]{\LaTeXe-Versionen}
+\LaTeXe\ bietet u.\,a. |\@nameuse| und |\@namedef| – aber recht selten genutzt (mir bis 4 Tage vor diesem Vortrag nicht bekannt, dass es Verwendung findet)
 \end{frame}
 
-\begin{frame}[fragile]{Beispiel für Paketschreiben mit \LaTeX3}{levelscheme.dtx}
-• bestes Beispiel für Arbeit mit \LaTeX3: \LaTeX3 …
+\begin{frame}[fragile]{Beispiel für das Arbeiten mit \LaTeX3}{levelscheme.dtx}
+• bestes Beispiel für Arbeit mit \LaTeX3: \LaTeX3-Kernel (|texdoc source3|)
 • für alles andere: |expl3| unter \LaTeXe
 • |expl3| bietet grundlegendes Programmierinterface
 • bietet viele Lösungen, für die \LaTeXe\ nur sehr umständliche Konstrukte hatte
+• Pakete, die nicht zum eigentlichen Kernel gehören, bieten high-level Interface für den normalen Nutzer
+• z.\,B. |xparse| 
 \•
-\begin{verbatim}   %%% oder so ähnlich und so …
-\expandafter\let\expandafter\second\first
-\cs_set_eq:Ne\second\first
-\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]{xparse}{Definieren von Dokumentbefehlen}
+• bietet ein sehr effizientes Interface zum Definieren von Dokumentbefehlen (für den Endnutzer gedachte Befehle)
+• |\(Declare/New/Renew/Provide)| – |Document| – |(Command/Environment)|
+• für Paketautoren und normale Nutzer
+• erfordert keine \LaTeX3-Syntax (nur intern damit programmiert)
+• Argumente werden einzeln aufgezählt
+• verschiedene Arten von Argumenten beliebig mischbar
+\•
+\end{frame}
+
+\begin{frame}[fragile]{xparse}{Anwendung}
+•[L2] |\newcommand\mycommand[2]{<Definition>}|
+•[L3] |\NewDocumentCommand\mycommand{mm}{<Definition>}|\\%
+~\pause
+•[L2] |\newcommand\mycommand[opt][2]{<Definition>}|
+•[L3] |\NewDocumentCommand\mycommand{O{opt}m}{<Definition>}|\\%
+~\pause
+•[L2] ???
+•[L3] |\NewDocumentCommand\mycommand{sO{opt}mt{A}O{2nd opt}mm}{<...>}|\\%
+Aufruf: |\mycommand*[Option1]{Argument} A [Option2] {Argument2}{Argument3}|
+\•
+\end{frame}
+
+\begin{frame}[fragile]{xparse}{Argumenttypen – Auswahl}
+•[m] mandatorisch, Gruppe oder einzelnes Token
+•[o] optional, wird zu |-NoValue-| wenn nicht gegeben
+•[O\{\}] optional, wird zum Argument, wenn nicht gegeben
+•[t\{\}] es wird geprüft, ob das in Klammern gegebene Token vorkommt (boolscher Test)
+•[s] testet, ob ein Stern vorkommt (= |t{*}|)
+•[u\{\}] liest bis zum angegebenen Token
+•[d12] optionales Argument, das durch die Token |1| und |2| begrenzt ist, z.\,B. |t<>|
+•[] l, D, g, G
+\•
+\end{frame}
+
+\begin{frame}{Anwendungsbeispiel}
+\begin{block}{levelscheme}
+Ein Paket, das das einfache Zeichnen von atomaren Levelschemata ermöglicht. Intern in |expl3| geschrieben, Nutzerbefehle mittels |xparse| geschrieben.
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile]{fontspec v2}
+• |fontspec| hat \XeTeX\ für \LaTeX-Nutzer erst richtig interessant gemacht
+• sehr einfaches und mächtiges Interface für sämtliche Schriftfeatures\pause
+• in Version 2: auch für lua\TeX
+• gleiche Syntax für den Nutzer, aber (fast) alle features von lua\TeX\ verfügbar
+• Code zum Schriftladen von Con\TeX t kopiert und verwendet
+• größtenteils in \LaTeX3-Syntax geschrieben
+\•
+\end{frame}
+
+\begin{frame}[fragile]{fontspec v2}
+• |\setmain/mono/sansfont{Schriftname}|
+• unter \XeTeX: Schriftname muss der sein, unter dem das Betriebssystem die Schrift kennt!
+•[⇒] abhängig vom System!
+• unter lua\TeX: Schriftdatenbank, alle Namen einer Schrift verfügbar (Schriftname, Systemname, Name für Menschen, Dateiname etc.)
+• falls vorhanden, werden zugehörige Schnitte bei Bedarf eingebunden
+•[⇒] |\fontspec{Linux Libertine} \textit{test}| lädt die Libertine in kursivem Schnitt
+\•
 \end{frame}
 
 \section{Neo – ein Tastaturlayout}
+\begin{frame}{Was haben \TeX\ und Tastaturbelegungen gemeinsam?}
+•<+> Sie sind alt!
+• die am weitesten verbreitete Belegung |qwerty/z| kam 1868 auf
+• \TeX\ kam 1978 in der ersten Version raus
+• seitdem hat sich bei \TeX\ einiges getan – bei Tastaturen nicht
+• da die Tastatur das wichtigste Hilfsmittel ist – betrachten wir die Entwicklung der beiden Ts und schauen, wie sie voneinander profitieren können
+\•
+\end{frame}
+
 \begin{frame}{Tastaturbelegungen – ganz kurz}
+• Tastatur\emph{belegung} – es geht nicht um ergonomische Hardware!
 • Anordnung der Tasten, Zeichenauswahl etc. noch von uralten Schreibmaschinen beibehalten
 • nur wenige, kleine Änderungen (|y| und |z| im Deutschen getauscht, Umlaute)
 • kaum Rücksichtnahme auf Erogonomie
@@ -239,7 +349,7 @@ weiter im Text
 \•
 \end{frame}
 
-\begin{frame}[fragile]
+\begin{frame}[fragile]{Beispiel: itemize}
 \begin{verbatim}
 \cs_new:Npn\newitemi{%
   \if_meaning:w\insideitemizei\inside%
@@ -259,7 +369,7 @@ weiter im Text
 \begin{frame}[fragile]{\altTeX für den Mathesatz}{Unicodezeichen im Mathesatz}
 • Schreiben von Unicodezeichen als Mathesatz: Paket |unicode-math| von Will Robertson\pause
 • Ermöglicht direkte Eingabe aller mathematischen Zeichen unter Verwendung von OpenType-Matheschriften
-• |∫₀⁸ x² = 170 ⅔|
+• |∫₀⁸ x² = 170 ⅔| $\int _0^8 x^2 = 170 \frac23$
 \•
 \end{frame}
 
@@ -329,16 +439,18 @@ a  = ⎛⎞
 Außerdem keine Matrizen mit verschiedenen Klammern möglich ⇒ ließe sich aber implementieren, wenn die Eingabe möglich wäre.
 \end{frame}
 
+\begin{frame}{Quellen, Links, Verweise}
+Quellcode für alt\TeX, \TeX-overview, |levelscheme| und diesem Vortrag:\\
+\url{http://github.com/alt}\\
+\LaTeX3 Quellen und Dokumentation: |texdoc source3| in einem aktuellen \TeX live und unter\\
+\url{http://www.latex-project.org/latex3.html}\\
+fontspec, unicode-math und alles andere von Will Robertson:\\
+\url{http://github.com/wspr}\\
+The official successor of \TeX:\\
+\url{http://river-valley.tv/tug-2010/an-earthshaking-announcement}
+
+\end{frame}
+
+
 \end{document}
-
-
-
-
-
-
-
-
-
-
-
 

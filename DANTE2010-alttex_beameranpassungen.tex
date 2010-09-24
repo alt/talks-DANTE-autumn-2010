@@ -1,3 +1,5 @@
+% !TeX root = DANTE2010-alttex.tex
+
 \mode<presentation>{
   \usetheme{Frankfurt}
   \useoutertheme{infolines}
@@ -9,6 +11,10 @@
 \newcommand\subtitlei[1]{\def\insertsubtitlei{#1}}
 \newcommand\subtitleii[1]{\def\insertsubtitleii{#1}}
 
+\let\oldsect\section
+\def\section#1{\gdef\insertmysectionbecausebeamersucks{#1}\oldsect{#1}}
+\def\insertmysectionbecausebeamersucks{}
+
 \setbeamertemplate{title page}
   {
     \vspace*{1cm}
@@ -16,36 +22,45 @@
       {\usebeamerfont{title}\usebeamercolor[bg]{title}
       {\Large \inserttitle}
       \\[.3cm]
-      \insertsubtitle\\
+      \insertsubtitle\\[2cm]
       \large \color{black}
-	Arno Trautmann
+	DANTE-Herbsttagung 2010 Trier\newline
+	Arno Trautmann\par
       }
-\vskip 0pt plus 5.5fill
-    {\hfill \insertdate \hfill}
     \end{centering}
-    \vskip 0pt plus 5.5fill
-    \hspace*{-.47cm}
-    \usebeamertemplate*{footline}
-\unskip
+\vskip 0pt plus 1filll
+  \leavevmode%
+\tiny
+  \hbox{%
+\hskip -1.7em
+  \begin{beamercolorbox}[wd=.3\paperwidth,ht=2.25ex,dp=1ex,center]{author in head/foot}%
+      \insertshortauthor
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[wd=.4\paperwidth,ht=2.25ex,dp=1ex,center]{title in head/foot}%
+    \insertshortdate{}
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[wd=.31\paperwidth,ht=2.25ex,dp=1ex,center]{author in head/foot}%
+    \insertframenumber{} / \inserttotalframenumber
+  \end{beamercolorbox}}%
+  \vskip0pt%
 }
 
 \setbeamercolor*{author in head/foot}{parent=palette tertiary}
 \setbeamercolor*{title in head/foot}{parent=palette secondary}
 \setbeamercolor*{date in head/foot}{parent=palette primary}
 
-\setbeamercolor*{section in head/foot}{parent=palette secondary}
+\setbeamercolor*{section in head/foot}{parent=palette primary}
 %\setbeamercolor*{subsection in head/foot}{parent=palette primary}
 
 \defbeamertemplate*{headline}{infolines theme changed}
 {
   \leavevmode%
   \hbox{%
-  \begin{beamercolorbox}[wd=.3\paperwidth,ht=2.25ex,dp=1.4ex,center]{title in head/foot}%
+  \begin{beamercolorbox}[wd=.5\paperwidth,ht=2.25ex,dp=1.4ex,center]{title in head/foot}%
     Maschinen, Formate, Tastaturen
   \end{beamercolorbox}%
-  \begin{beamercolorbox}[wd=.3\paperwidth,ht=2.25ex,dp=1.4ex,center]{section in head/foot}%
-\color{white}
-    \insertsectionhead\hspace*{1em}
+  \begin{beamercolorbox}[wd=.5\paperwidth,ht=2.25ex,dp=1.4ex,center]{title in head/foot}%
+    \insertmysectionbecausebeamersucks%
   \end{beamercolorbox}}%
   \vskip0pt%
 }
