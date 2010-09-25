@@ -10,13 +10,26 @@
 
 \begin{frame}{Worum geht es?}
 • Einfacherers Arbeiten mit \TeX\ durch:
-• Maschinen: Neuentwicklungen der letzten Jahre, Nutzen für den normalen Anwender
+• Maschinen: Neuentwicklungen der letzten Jahre (\XeTeX, lua\TeX), Nutzen für den normalen Anwender
 • Formate: \LaTeX3-Kernel und Paket, die darauf basieren
 • Tastaturen: Neo-Tastaturlayout
 \•
 \end{frame}
 
 \section{Maschinen}
+\begin{frame}{Warum neue Maschinen?}
+• \TeX\ wird seit langer Zeit nicht weiterentwickelt
+• Änderungen nur noch für Bugfixes
+•[⇒] extrem stabil\pause
+• im Laufe der Zeit gibt es aber neue Anforderungen:
+• mehr Speicher für Variablen
+• neue Codierungen (Eingabe, Schriften)
+• pdf als Ausgabe-Format (pdf-Features nur durch direktes Erzeugen verfügbar)
+• neue Schrifttechnologien
+\•
+\end{frame}
+
+
 \begin{frame}{Maschinen}
 • kurzer Überblick über die Entwicklung von \TeX78 bis lua\TeX\\
 (aktuelle Version unter \url{http://github.com/alt/overview})
@@ -24,11 +37,11 @@
 \•
 \end{frame}
 
-\begin{frame}{Vorteile neuer Maschinen – im Alltag}
+\begin{frame}{Vorteile von \XeTeX\ und lua\TeX – im Alltag}
 \begin{block}{Vollständige utf8-Unterstützung}
-⇒ nie mehr Probleme beim Austausch von Dokumenten, nie wieder kaputte Umlaute, keine umständliche Eingabe von speziellen Zeichen anderer Sprachen, beliebig viele Sonderzeichen,\\
-ganz zu schweigen von asiatischem Satz …
+⇒ nie mehr Probleme beim Austausch von Dokumenten, nie wieder kaputte Umlaute, keine umständliche Eingabe spezieller Zeichen anderer Sprachen, beliebig viele Sonderzeichen – ganz zu schweigen von asiatischem Satz …
 \end{block}
+\pause
 
 \begin{block}{moderne Schrifttechnologien (ttf, otf, aat)}
 Keine speziellen Dateien zum Schrifteinbinden benötigt, Portabilität von Schriften anderer Anwendungen\\
@@ -43,17 +56,19 @@ Keine speziellen Dateien zum Schrifteinbinden benötigt, Portabilität von Schri
 • nicht rückwärtskompatibel
 • auf veralteten Systemen nicht verfügbar
 • Wermutstropfen bei \XeTeX: Mikrotypographie nicht wie bei pdf\TeX\ möglich
-• Verwirrung und Unklarheiten durch neue Vielfalt („Welche Maschine, welches Format, welche Distribution nutzt du?“)
+• Verwirrung und Unklarheiten durch neue Vielfalt (Welche Maschine, welches Format, welche Distribution?)\pause
+•[⇒] Was lehrt man den Anfänger?
 \•
 \end{block}
 \end{frame}
 
 \section{Formate}
 \begin{frame}{Formate}
-• fast niemand verwendet INITEX als Programm, fast immer wird ein Format verwendet:
+• fast niemand verwendet INITEX als Programm, fast immer wird ein Format verwendet, eine große Sammlung von Makros als Binärdatei
 • plain\TeX: Do It Yourself!
 • \LaTeX: A Document Preparation System
-• Con\TeX t: super-duper cow power – kann alles außer Dokumentation\pause
+• Con\TeX t: monolithischer als \LaTeX, aber sehr flexibel einseztbar\\%
+\pause – „kann alles außer Dokumentation“ \pause
 • alle Formate können an Maschinen angepasst werden, um bestimmte Features leicht zugänglich zu machen: pdf\LaTeX, \XeLaTeX, lua\LaTeX, Con\TeX t Mk II bzw. IV, plain lua\TeX\ etc.
 \•
 \end{frame}
@@ -62,62 +77,58 @@ Keine speziellen Dateien zum Schrifteinbinden benötigt, Portabilität von Schri
 • \LaTeXe: eigentlich als Zwischenversion zu \LaTeX3 geplant, inzwischen eingefroren und meistverwendetes \TeX-Format
 • keine Weiterentwicklung im Kernel, keine Korrektur von Designfehlern
 • \LaTeX3 als lange währendes, unbekanntes Mysterium …
+• immer noch nicht als eigenständiges Format verfügbar\pause
+• aber als Paket auf \LaTeXe
 • einige Pakete bauen bereits auf \LaTeX3-Code auf
-• z.\,B. |siunitx|, |fontspec|
-• inzwischen ist \LaTeX3 sogar bei lua\TeX\ angekommen …
-\•
-\end{frame}
-
-\begin{frame}{Con\TeX t}
-• baut in der neusten Verison voll auf lua\TeX\ auf
-• kann alles außer Dokumentation
-• wer mag, darf nun was dazu sagen …
+• z.\,B. |siunitx|, |fontspec|, …
+• erfordert \eTeX\ als gemeinsamen Nenner von pdf\TeX\ und \XeTeX
+• inzwischen werden sogar lua\TeX-features direkt genutzt (floating point modul)
 \•
 \end{frame}
 
 \begin{frame}{Designmerkmale von \LaTeX3 (Auswahl)}
 • Versuch einer „gesunden“ (sane) Programmierebene, die von \TeX\ abstrahiert
-• gute, übersichtliche Namensgebung von internen Makros (großes Problem von \LaTeXe)
+• gute, übersichtliche Namensgebung von internen Makros (Problem in \LaTeXe\ durch evolutionäre Entwicklung)
 • sinnvolle Strukturierung etc. etc. etc.
+•[⇒] Entwicklung durch Planung, nicht durch zu frühes Anwenden
 \•
 \end{frame}
 
 \begin{frame}[fragile]{Designmerkmale von \LaTeX3 (Auswahl)}
-• anderes Catcode-Regime: |\ExplSyntaxOn/Off|\\%
+• anderes Catcode-Regime: |\ExplSyntaxOn/Off| (als |expl3| in \LaTeXe)\\%
  (vgl. |\makeatletter \makeatother|
 • Leerzeichen werden ignoriert (|~| wenn nötig)
 • Namen: Das |@| als Trennstelle in Namen wird vom |_| übernommen
-• Interne Namen enden mit einem |:|\pause
-• Nach dem |:| werden erwartete Argumente dargestellt
-• |\cs_new:Npn|\\%
-|Modulname_Zwischenname_Name : Argumente|
+• Interne Namen enden mit einem |:|
+• Nach dem |:| werden erwartete Argumente dargestellt\pause
+• |\cs_new:Npn| ( ≈ |\def|) \\%
+|Modulname_Zwischenname_Name : Argumente|\\%
 \•
 \end{frame}
 
-\begin{frame}[fragile]{Argumente}
-• |N|: „normal“es Token
-• |n|: „normal“, gruppiert
-• |e|: wird expandiert
-• |x|: wird voll expandiert
+\begin{frame}[fragile]{Argumente (Auswahl)}
+• |N|: „no manipulation“es Token
+• |n|: „no manipulation“, gruppiert
+• |x|:  „exhaustive expansion“, wie |\edef|
 • |c|: baute eine Kontrollsequenz: |\cs_new:cpn{name} = \cs_new:Npn\name|
 • |p|: \TeX-Parametersequenz (|#1 xyz #2|)
 • |T|: true-Zweig für |\if|-Abfragen
 • |F|: false-Zweig für |\if|-Abfragen (T, F oder TF möglich!)
-• |w|: „wired“ – alles andere (z.\,B. low level-|\if|-Konstrukte)
+• |D|: „Don’t use“ – umbenannte \TeX-Primitiva
 \•
 \end{frame}
 
-\begin{frame}{Vorteile der Namensgebung}
-• Konsistente Einteilung in Module möglich
+\begin{frame}[fragile]{Vorteile der Namensgebung}
+• Konsistente Einteilung in Module möglich (und strikter durchgesetzt)
 • Quellcode wesentlich besser lesbar (Wird eine Variable gesetzt? Ein Zähler? Eine Konstante verwendet? …)
-• Anzahl der nötigen Argumente direkt sichtbar
+• Anzahl der nötigen Argumente direkt sichtbar (|\use_none:nn, \use_none:nnnn, \use_ii:nnn|)
 • Ändern von Expansion/Auswertung etc. eines Argumentes durch Ändern eines Buchstabens im Argument
 \•
 \end{frame}
 
 \begin{frame}[fragile]{Beispiel für sinnvolle \LaTeX3-Konstrukte}
-• angenommen: Der Nutzer kann einen Namen |\name| vorgeben. Aus diesem Namen werden die Befehle |name1|, |name2| und |name-<name1>| gebaut. (|hallo| ⇒ |hallo1|, |hallo2|, |hallo-Inhalt 1|)
-\•
+angenommen: Der Nutzer kann einen Namen |\name| vorgeben. Aus diesem Namen werden die Befehle |name1|, |name2| und |name-<name1>| gebaut. (|hallo| ⇒ |hallo1|, |hallo2|, |hallo-Inhalt 1|)
+
 \begin{block}{\TeX, meist in \LaTeX\ verwendet:}
 \begin{verbatim}
 \expandafter\def\csname \name1\endcsname{Inhalt 1}
@@ -125,6 +136,10 @@ Keine speziellen Dateien zum Schrifteinbinden benötigt, Portabilität von Schri
 \expandafter\def\csname \name-\csname\name \endcsname\endcsname{Inhalt von name-<name>}
 \end{verbatim}
 \end{block}
+\end{frame}
+
+\begin{frame}[fragile]{Beispiel für sinnvolle \LaTeX3-Konstrukte}
+angenommen: Der Nutzer kann einen Namen |\name| vorgeben. Aus diesem Namen werden die Befehle |name1|, |name2| und |name-<name1>| gebaut. (|hallo| ⇒ |hallo1|, |hallo2|, |hallo-Inhalt 1|)
 
 \begin{block}{\LaTeX3}
 \begin{verbatim}
@@ -141,22 +156,12 @@ Keine speziellen Dateien zum Schrifteinbinden benötigt, Portabilität von Schri
 \LaTeXe\ bietet u.\,a. |\@nameuse| und |\@namedef| – aber recht selten genutzt (mir bis 4 Tage vor diesem Vortrag nicht bekannt, dass es Verwendung findet)
 \end{frame}
 
-\begin{frame}[fragile]{Beispiel für das Arbeiten mit \LaTeX3}{levelscheme.dtx}
-• bestes Beispiel für Arbeit mit \LaTeX3: \LaTeX3-Kernel (|texdoc source3|)
-• für alles andere: |expl3| unter \LaTeXe
-• |expl3| bietet grundlegendes Programmierinterface
-• bietet viele Lösungen, für die \LaTeXe\ nur sehr umständliche Konstrukte hatte
-• Pakete, die nicht zum eigentlichen Kernel gehören, bieten high-level Interface für den normalen Nutzer
-• z.\,B. |xparse| 
-\•
-\end{frame}
-
 \begin{frame}[fragile]{xparse}{Definieren von Dokumentbefehlen}
-• bietet ein sehr effizientes Interface zum Definieren von Dokumentbefehlen (für den Endnutzer gedachte Befehle)
+• |xparse| gehört nicht zum Kernel, sondern zu den |xpackages|
+• bietet ein sehr effizientes Interface zum Definieren von Dokumentbefehlen (für den Endnutzer gedachte Befehle)\pause
 • |\(Declare/New/Renew/Provide)| – |Document| – |(Command/Environment)|
-• für Paketautoren und normale Nutzer
 • erfordert keine \LaTeX3-Syntax (nur intern damit programmiert)
-• Argumente werden einzeln aufgezählt
+• Argumente werden einzeln angegeben (vgl. Tabellenspalten |rcl|)
 • verschiedene Arten von Argumenten beliebig mischbar
 \•
 \end{frame}
@@ -169,8 +174,8 @@ Keine speziellen Dateien zum Schrifteinbinden benötigt, Portabilität von Schri
 •[L3] |\NewDocumentCommand\mycommand{O{opt}m}{<Definition>}|\\%
 ~\pause
 •[L2] ???
-•[L3] |\NewDocumentCommand\mycommand{sO{opt}mt{A}O{2nd opt}mm}{<...>}|\\%
-Aufruf: |\mycommand*[Option1]{Argument} A [Option2] {Argument2}{Argument3}|
+•[L3] |\NewDocumentCommand\mycommand{sO{opt}mt{+}O{2nd opt}mm}{<...>}|\\%
+Aufruf: |\mycommand*[Option1]{Argument} + [Option2] {Argument2}{Argument3}|
 \•
 \end{frame}
 
@@ -180,15 +185,15 @@ Aufruf: |\mycommand*[Option1]{Argument} A [Option2] {Argument2}{Argument3}|
 •[O\{\}] optional, wird zum Argument, wenn nicht gegeben
 •[t\{\}] es wird geprüft, ob das in Klammern gegebene Token vorkommt (boolscher Test)
 •[s] testet, ob ein Stern vorkommt (= |t{*}|)
-•[u\{\}] liest bis zum angegebenen Token
 •[d12] optionales Argument, das durch die Token |1| und |2| begrenzt ist, z.\,B. |t<>|
-•[] l, D, g, G
+• …
 \•
 \end{frame}
 
 \begin{frame}{Anwendungsbeispiel}
 \begin{block}{levelscheme}
-Ein Paket, das das einfache Zeichnen von atomaren Levelschemata ermöglicht. Intern in |expl3| geschrieben, Nutzerbefehle mittels |xparse| geschrieben.
+Ein Paket, das das einfache Zeichnen von atomaren Levelschemata ermöglicht.\\
+Intern in |expl3| und |TikZ| geschrieben, Nutzerbefehle mittels |xparse| erstellt.
 \end{block}
 \end{frame}
 
@@ -218,16 +223,16 @@ Ein Paket, das das einfache Zeichnen von atomaren Levelschemata ermöglicht. Int
 • die am weitesten verbreitete Belegung |qwerty/z| kam 1868 auf
 • \TeX\ kam 1978 in der ersten Version raus
 • seitdem hat sich bei \TeX\ einiges getan – bei Tastaturen nicht
-• da die Tastatur das wichtigste Hilfsmittel ist – betrachten wir die Entwicklung der beiden Ts und schauen, wie sie voneinander profitieren können
+• Betrachten wir die Entwicklung der Tastaturbelegungen!
 \•
 \end{frame}
 
 \begin{frame}{Tastaturbelegungen – ganz kurz}
 • Tastatur\emph{belegung} – es geht nicht um ergonomische Hardware!
 • Anordnung der Tasten, Zeichenauswahl etc. noch von uralten Schreibmaschinen beibehalten
+• Belegung durch mechanische Bedingungen gegeben (Verhaken der Stempel …)
 • nur wenige, kleine Änderungen (|y| und |z| im Deutschen getauscht, Umlaute)
 • kaum Rücksichtnahme auf Erogonomie
-• Belegung durch mechanische Bedingungen gegeben
 \•
 \end{frame}
 
@@ -242,7 +247,7 @@ Ein Paket, das das einfache Zeichnen von atomaren Levelschemata ermöglicht. Int
 \end{frame}
 
 \begin{frame}[fragile]{Neo – ein Tastaturlayout mit vielen Sonderzeichen}
-• erreichbar über zusätzliche Modifier
+• Sonderzeichen erreichbar über zusätzliche Modifier
 • maximal zwei Modifier plus Taste
 • für noch mehr Sonderzeichen: Compose-Taste\\%
 (unter Linux und Solaris bekannt, jetzt auch für Windows, und stark erweitert)
@@ -262,21 +267,23 @@ Ein Paket, das das einfache Zeichnen von atomaren Levelschemata ermöglicht. Int
 \end{frame} 
 
 \section{Experimente mit \altTeX}
-\begin{frame}{Was ist \altTeX?}
+\begin{frame}{\altTeX?}
 • experimentelles Paket zum „alternativen \TeX en“
-• Ansätze, die häufige Arbeiten einfacher machen
+• Versuch, häufige Arbeiten einfacher zu gestalten
+• Ansätze zur besseren Lesbarkeit und Übersicht von Quellcode
 • stark auf Neo aufbauend (Verwendung vieler unicode-Zeichen)
-• 
 \•
 \end{frame}
 
-\begin{frame}[fragile]{Itemize}
+\begin{frame}[fragile]{Itemize ohne alt\TeX}
 • Aufzählung im normalen Text:
 \begin{verbatim}
+Text
 \begin{itemize}
 \item erster Punkt
 \item zweiter Punkt
 \end{itemize}
+mehr Text
 \end{verbatim}
 • recht viel Schreibarbeit
 • ein guter Editor kann sehr viel Arbeit abnehmen
@@ -284,7 +291,7 @@ Ein Paket, das das einfache Zeichnen von atomaren Levelschemata ermöglicht. Int
 \•
 \end{frame}
 
-\begin{frame}[fragile]
+\begin{frame}[fragile]{itemize mit alt\TeX}
 • Idee: Nehme ein freies Unicodezeichen (z.\,B. |•|)
 • weise dem Zeichen eine Bedeutung zu, die seinem Aussehen entspricht (z.\,B. Aufzählungspunkt)
 • implementiere so, dass kein weiterer Code nötig ist (Umgebungen etc.)
@@ -306,7 +313,7 @@ weiter im Text
 \end{frame}
 
 \begin{frame}[fragile]{Beispiel: itemize}
-• erster Ansatz: |•| aktiv machen
+• erster Ansatz: |•| aktiv machen (\TeX\ sieht dann |•| als Befehl an)
 \begin{verbatim}
 \catcode\`• = \active
 \end{verbatim}
@@ -315,6 +322,7 @@ weiter im Text
 \begin{verbatim}
 \let • \item
 \end{verbatim}
+\pause
 • Bereits Verbesserung im Lesefluss:
 \begin{verbatim}
 \begin{itemize}
@@ -326,17 +334,13 @@ weiter im Text
 \end{frame}
 
 \begin{frame}[fragile]{Beispiel: itemize}
-• weiterhin: Umgebung |\begin{verbatim}| einsparen!
+• nächster Schritt: Umgebung |\begin{verbatim}| einsparen!
 • dazu: bei jedem Auftreten von |•| prüfen, ob man bereits in der Aufzählung ist:\pause
 \•
-\begin{tikzpicture}
-\node {|•| in |itemize|?}
-    child {node {ja}
-      child {node {|item|}}}
-    child {node {nein}
-      child {node {\vbox{\hbox{|begin\{itemize\}|}\hbox{\textbackslash|setbooleantrue …|}}}}}
-;
-\end{tikzpicture}
+
+|•| in Aufzählung?\\
+\quad ja ⇒ |\item|\\
+\quad nein ⇒ |\begin{itemize} \setbooltrue{insideitemize}\item| 
 \end{frame}
 
 \begin{frame}[fragile]{Beispiel: itemize}
@@ -374,7 +378,7 @@ weiter im Text
 \end{frame}
 
 \begin{frame}[fragile]{\altTeX für den Mathesatz}{Hoch- und Tiefstellen}
-• Schreiben vieler hoch- und tiefgestellter Zahlen (z.\,B. Tensorrechnung) ist sehr lästig
+• Hoch- und tiefgestellte Zahlen können sehr lästig werden (z.\,B. Tensorrechnung)
 •[⇒] Ziel: Einsparen von Gruppierungen!
 • Ansatz: Definiere |_| und |^| als Makros, die ihr Argument bis zum nächsten Leerzeichen suchen, falls keine Klammer geöffnet wird
 • Alles zwischen |_|,|^| und einem Leerzeichen wird als Argument hoch- bzw. tiefgestellt
@@ -387,27 +391,28 @@ weiter im Text
 \begin{frame}[fragile]{\altTeX für den Mathesatz}{Klammersetzen}
 • Klammern müssen fast immer mit |\left| und |\right| gesetzt werden:
 \•
-\begin{LTXexample}
+\begin{LTXexample}[pos=b,preset={\centering}]
 \[(\frac 12) \left(\frac 12 \right)\]
 \end{LTXexample}
-•[⇒] Ziel: Klammern werden immer angepasst
+•[⇒] Ziel: Klammern sollen immer angepasst werden
 • Ansatz: Sichere Bedeutung von |()| in Makros |\openbrace \closebrace|
 • mache |()| aktiv
 • definiere |()| als |\left\openbrace| bzw. |\right\openbrace|\pause
 • Problem: Jegliche andere Verwendung von Klammern (im Text, bei |picture|-Umgebung u.\,ä.) funktioniert nicht mehr!
-• Abfangen durch geschicktere Definition, Überprüfen des Mathemodus etc.
+•[⇒] Abfangen durch geschicktere Definition, Überprüfen des Mathemodus etc.
 \•
 \end{frame}
 
 \begin{frame}[fragile]{\altTeX für den Mathesatz}{Matrizen}
 • Eingabe von Matrizen ist recht aufwändig und unübersichtlich:
 \•
-\begin{LTXexample}
+\begin{LTXexample}[pos=b,preset={\centering}]
 $\begin{bmatrix} a & b \\ c & d \end{bmatrix}$
 \end{LTXexample}
 • Unicode verfügbt über Klammern, die zum Einschließen von Matrizen geeignet sind
 • mit Neo leicht zu erzeugen über Compose-Funktion:
 \•
+\pause
 \begin{verbatim}
 ♫ x <Klammertyp> <Anzahl Spalten>
 ♫ x ( 3

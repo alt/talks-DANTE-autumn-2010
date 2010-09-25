@@ -1,19 +1,22 @@
 \documentclass[t]{beamer}
 \input{\jobname_header}
 \input{\jobname_beameranpassungen}
+
+\setsansfont{Linux Libertine}
+
 \begin{document}
 
 \begin{frame}{\LaTeX-Vorlesung an der Uni Heidelberg}
 • Vorlesung „Einführung in das Textsatzsystem \LaTeX“ (SoSe 2010)
 • Veranstaltet von der Informatik, 2\,SWS
-• 2\,ECTS-Punkte, benotet
-•[] (übergreifende Kompetenzen)
+• 2\,ECTS-Punkte, benotet\\%
+(übergreifende Kompetenzen)
 • Bewertungsgrundlage: Übungszettel
 • 170 Teilnehmer (unverbindlich) angemeldet, ca. 100 Scheine erworben
 \•
 \end{frame}
 
-\section{Warum \LaTeX\ an der Uni?}
+\section{Warum ein \LaTeX-Kurs an der Uni?}
 \begin{frame}{\LaTeX\ im universitären Umfeld}
 • Formelsatz: Mathematik, Physik
 • hochwertige Dokumente: Sprachwissenschaften
@@ -25,10 +28,8 @@
 \begin{frame}{Kontakt}
 • nicht jeder Studienanfänger kennt \LaTeX\ überhaupt
 • oft nur den Namen gehört, aber keine Kenntnisse
-•[⇒] Interesse vorhanden, oft kein Ansprechpartner
-• als Vorlesung, um kompetenten Ansprechpartner zu bieten
-• langfristige Beschäftigung, um selbst Kompetenz ausbilden zu können
-• Vorteil gegenüber Crash-Kursen: Tieferes Verständnis statt nur spezielles Auswendiglernen
+•[⇒] Interesse vorhanden, oft aber kein Ansprechpartner\pause
+• Vorlesung, um „kompetenten“ Ansprechpartner zu bieten
 • Ziel: Eigenständiges Verfassen umfangreicher (Abschluss-)Arbeiten
 • Vermeiden von unverstandenem copy-paste Code, der Probleme bereiten kann
 \•
@@ -45,13 +46,14 @@
 
 \begin{frame}{Warum bewertete Vorlesung?}
 • Anerkennung der erbrachten Übungsleistung
-• Erwerb typographischer Grundkenntnisse als anerkennbare Studienleistung
+• Erwerb typographischer Grundkenntnisse als anerkennbare Studienleistung („Fächerübergreifende Kompetenzen“)
 \•
 \end{frame}
 
 \begin{frame}{Offizielle Organisation}
 • offizieller Verantwortlicher: Professor der Informatik
-• zwei HiWis
+• Finanzierung als HiWi
+• Hilfs-HiWi zum Korrigieren\,/\,Besprechen der Übungen
 \•
 \end{frame}
 
@@ -60,24 +62,18 @@
 • orientiert an modernen Maschinen
 • vorgeschriebene Codierung: utf8 (Vermeiden von allen möglichen Problemen)
 •[⇒] fast ausschließlich Verwendung von \XeTeX
+• einheiltiche Distribution \TeX live2009
 • einheitlicher Editor (\TeX works)
-• …
-• \url{http://elearning.uni-heidelberg.de/mod/resource/view.php?id=87822}
+• Materialien online, Quellcode unter \url{http://github.com/alt/}
 \•
 \end{frame}
 
 \begin{frame}{\TeX nische Umsetzung: Folien}
 • Ziel: einheitliches Layout für alle Folien
 • jedes Dokument eigenständig
-• Problem: Anzahl der Pakete beschränkt (Counter, Längen etc., Inkompatibilitäten)
-• geringst möglicher Aufwand zum Setzen (automatisches Erkennen von Titel, Vorlesungsnummer, …)
-\•
-\end{frame}
-
-\begin{frame}{\TeX nische Umsetzung: Folien}
-• gewünscht: einheitliches Layout für alle Folien
 • Verwendung von beamer
-• eigene header-Datei
+• Problem: Anzahl der Pakete beschränkt (Counter, Längen etc., Inkompatibilitäten)
+• geringst möglicher Aufwand zum Setzen (automatisches Erkennen von Titel, Vorlesungsnummer, …)\pause
 • eigene Datei für Anpassungen des Layouts
 • experimentelle Methode, um den Titel aus dem Dateinamen zu extrahieren
 \•
@@ -88,6 +84,7 @@
 \input{kursheader}
 \begin{document}
 \end{verbatim}
+Sonst nichts.
 \end{frame}
 
 \section{Übungen und Folien}
@@ -111,7 +108,8 @@
 
 \begin{frame}{Bewertung}
 • Aus Zeitgründen: HiWi
-• Abzüge für: fehlende Übungsteile
+• Abzüge für:
+•[] fehlende Übungsteile
 •[] Code, der \TeX-Fehler verursacht
 •[] unschöne, unelegante Lösungen
 •[] nicht lauffähiger Code (wg. Kodierung o.\,ä.)

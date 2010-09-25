@@ -11,6 +11,14 @@
 \newcommand\subtitlei[1]{\def\insertsubtitlei{#1}}
 \newcommand\subtitleii[1]{\def\insertsubtitleii{#1}}
 
+\AtBeginSection[] % Do nothing for \section*
+{
+\begin{frame}
+\tableofcontents[currentsection]
+\end{frame}
+}
+
+
 \let\oldsect\section
 \def\section#1{\gdef\insertmysectionbecausebeamersucks{#1}\oldsect{#1}}
 \def\insertmysectionbecausebeamersucks{}
